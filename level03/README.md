@@ -1,35 +1,29 @@
-We used the "ls" command to list the files in the directory and found a program named "level03." When We used "cat" to view its contents, We realized it was in binary format. To gain a better understanding of how it works, we attempted to disassemble it using 'objdump -d level03,' which provided an assembly program. However, We found the assembly code difficult to comprehend.
+# level03
 
-We decided to look for a tool to assist us in understanding the program and came across Ghidra, which can translate assembly code into C. After running the code through Ghidra, We found the following "main" function in the program:
+We only have one file in the directory and there is an executable "level03". To get a better understanding on how it works, we attempted to disassemble it using 'objdump -d level03,' which provided an assembly program. Because we never coded in assembly and are way more comfortable with C, we have to find a way to reverse-engineer this executable.
 
-int main(int argc, char **argv, char **envp)
-{
-**gid_t **rgid;
-**uid_t **ruid;
-int iVar1;
-gid_t gid;
-uid_t uid;
+We decided to look for a tool to assist us in understanding the program and came across Ghidra, which can translate assembly code into C. After running the code through Ghidra, We found the following "main" function which is stored in the resources folder, level03.c. (The code is obviously not working on this file, it's just a part of translation of the assembly code in level03).
 
-**rgid = getegid();
-**ruid = geteuid();
-setresgid(**rgid, **rgid, **rgid);
-setresuid(**ruid, **ruid, **ruid);
-iVar1 = system("/usr/bin/env echo Exploit me");
-return iVar1;
-}
+The line that caught our attention was: 
 
-The line that caught our attention was: iVar1 = system("/usr/bin/env echo Exploit me");. It indicated that the program was calling the "echo" built-in, which reminded us of the Minishell project we worked on earlier. In Minishell, built-in commands were called using the 'PATH=' environment variable. This led me to believe that We might be able to manipulate the program to call "getflag" instead of "echo."
+```
+iVar1 = system("/usr/bin/env echo Exploit me");. It indicated that the program was 
+```
 
-To achieve this, We created a small program launching a new shell, since the executable level03 uses setuid and setgid, and got the two "s" bits set when doing ls -la:
-=> -rwsr-sr-x 1 flag03 level03 8627 Mar 5 2016 level03
+Calling the "echo" built-in, is using the 'PATH=' environment variable. This represent a risk for this program, cause if we update the PATH= and add a echo file to another location, it could find our echo before the built-in present normally in Linux. With that we can make it execute a file that contains anything we want.
 
-It means that the code is gonna run being flag03, and execute commands being flag03.
-Then, We exported the new PATH environment variable as follows: export PATH=/test:$PATH.
-And it worked we are now in a new shell as flag03.
+To achieve this, we created a small program launching a new shell, since the executable level03 uses setuid and setgid, and got the two "s" bits set when doing ls -la:
+-rwsr-sr-x 1 flag03 level03 8627 Mar 5 2016 level03
 
+It means that the code is gonna be executed by flag03, and commands will be executed with flag03 privileges.
+Then, we exported the new PATH environment variable as follows: export PATH=/test:$PATH.
+And it worked. We are now in a new shell as flag03.
+
+```
 /*********************************************************\
 
 flag03@SnowCrash:~$ getflag
 Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
 
 \*********************************************************/
+```
