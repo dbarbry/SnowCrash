@@ -1,2 +1,2 @@
 # SnowCrash
-Cybersec project
+This is our fist project about Cybersecurity
