@@ -1,5 +1,7 @@
+# level08
+
 In this level we have two files : level08 and Token
-We use Ghidra to read level08 and we understand that the program is able to print what is in the Token, but 
+We used Ghidra to read level08 and we understand that the program is able to print what is in the Token, but apparently the protection the program uses is just checking if the filename contains token, and refuse the access if so as we can see below:
 
 ```
   pcVar1 = strstr((char *)in_stack_00000008[1],"token");
@@ -8,24 +10,24 @@ We use Ghidra to read level08 and we understand that the program is able to prin
   }
 ```
 
-Denied us the access.
+After many discussion and bad solutions, we tried to make a symbolical link of Token just to change its name and read what's inside.
 
-After many discussion and wrong way to solve it, we tried to make a symbolical link of Token juste to change it's name and read what's inside.
-
+```
 ln -s /home/user/level08/token /tmp/test4
+```
 
-Then we execute it : 
+Then we executed it : 
 
+```
 level08@SnowCrash:~$ ./level08 /tmp/test4
 quif5eloekouj29ke0vouxean
+```
 
-We get our flag! 
-
-We log on flag08 and type getflag and we get our token : 
-
+```
 /*********************************************************\
 
 flag08@SnowCrash:~$ getflag 
 Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
 
 \*********************************************************/
+```
