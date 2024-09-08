@@ -1,7 +1,18 @@
-# SnowCrash
+<p aligne="center">
+    <img src="images/header.png" alt="SnowCrash">
+</p>
+
+<h1 align="center">
+    SnowCrash
+</h1>
+
+<p align="center">
+	<b><i>Cybersecurity project to learn basic exploitations on linux machines.</i></b><br>
+</p>
+
 Welcome to our very first project only focused on Cybersecurity, SnowCrash. The principle is pretty straightforward, it's a capture the flag, where we have to find a total of 15 flags to go from level00 to level14 (including the bonus part).
 
-This project have been done with [@Rgeral](https://github.com/Rgeral) a great friend of mine, and we did this project in approximatively 2 weeks.
+This project has been done with [@Rgeral](https://github.com/Rgeral) a great friend of mine, and we did this project in approximatively 2 weeks.
 
 ## Organisation
 
