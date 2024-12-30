@@ -43,3 +43,9 @@ The level's folder, then a resources folder if necessary (containing level infor
 ## What's next ?
 
 This project is part of the CyberSecurity branch of 42 School, the aim now is to continue this branch and go as far as possible, next one is a project in collaboration with [HackTheBox](https://www.hackthebox.com). I should continue this branch with [@Rgeral](https://github.com/Rgeral).
+
+## Contributors
+
+| ![rgeral](https://github.com/rgeral.png?size=75) | ![dbarbry](https://github.com/kbarbry.png?size=75) |
+|:-----------------------------------------------------------:|:--------------------------------------------------------:|
+| **[rgeral](https://github.com/rgeral)**          | **[dbarbry](https://github.com/kbarbry)**           |
