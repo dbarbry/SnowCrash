@@ -14,6 +14,8 @@ Welcome to our very first project only focused on Cybersecurity, SnowCrash. The 
 
 This project has been done with [@Rgeral](https://github.com/Rgeral) a great friend of mine, and we did this project in approximatively 2 weeks.
 
+---
+
 ## Organisation
 
 Each exercice will be organized like so:
@@ -39,6 +41,8 @@ The level's folder, then a resources folder if necessary (containing level infor
 - [x] Time-Of-Check Time-Of-Use attacks. 
 - [x] Assembly code.
 - [x] Python scripts.
+
+---
 
 ## What's next ?
 
