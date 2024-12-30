@@ -46,6 +46,6 @@ This project is part of the CyberSecurity branch of 42 School, the aim now is to
 
 ## Contributors
 
-| ![rgeral](https://github.com/rgeral.png?size=75) | ![dbarbry](https://github.com/kbarbry.png?size=75) |
+| ![rgeral](https://github.com/rgeral.png?size=75) | ![dbarbry](https://github.com/dbarbry.png?size=75) |
 |:-----------------------------------------------------------:|:--------------------------------------------------------:|
 | **[rgeral](https://github.com/rgeral)**          | **[dbarbry](https://github.com/kbarbry)**           |
